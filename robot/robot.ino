@@ -31,7 +31,7 @@ int oldR;
 void go(int l, int r) {
   if (l == 0 && r == 0) {
     Go(-oldL, -oldR);
-    delay(50); 
+    delay(100); 
   }
   Go(l, r);
   oldL = l;
@@ -71,16 +71,24 @@ void goF() {
 
 void goFW() {
   while (!found(LF) && !found(RF)) {
-    // if (found(LL) && !found(RL)) go(170, 135);
-    // else if (!found(LL) && found(RL)) go(135, 170);
-    // else 
     go(130, 130);
   }
   go(0,0);
 }
 
-void goFuWR() {
-  while(!found(LW)) go(150, 150);
+void goFWL() {
+  while (!found(LF) && !found(RF) && !found(RW)) {
+    if (found(LL)) go(160, 140);
+    else go(140, 160);
+  }
+  go(0,0);
+}
+
+void goFWR() {
+  while (!found(LF) && !found(RF) && !found(LW)) {
+    if (!found(RL)) go(160, 140);
+    else go(140, 160);
+  }
   go(0,0);
 }
 
@@ -100,19 +108,23 @@ void setup() {
   pinMode(ML_D, OUTPUT);
   pinMode(MR_D, OUTPUT);
 
-  goFuWR();
+  goFWL();
   goF();
-  goFW();
+  setFront();
   turnL();
   setBack();
   setFront();
   go(-100, -100);
   delay(150);
   turnR();
+  goFWL();
   setFront();
+  go(-100, -100);
+  delay(150);
   turnR();
   setBack();
-  goFuWR();
+  goFWL();
+  goF();
   setFront();
 
   // Checkpoint 1
