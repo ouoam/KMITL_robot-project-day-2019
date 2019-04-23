@@ -31,7 +31,7 @@ int oldR;
 void go(int l, int r) {
   if (l == 0 && r == 0) {
     Go(-oldL, -oldR);
-    delay(100); 
+    delay(50); 
   }
   Go(l, r);
   oldL = l;
@@ -66,7 +66,7 @@ void goF() {
     else if (!found(LL) && found(RL)) go(135, 170);
     else go(150, 150);
   }
-  go(0,0);
+  // go(0,0);
 }
 
 void goFW() {
@@ -81,7 +81,7 @@ void goFWL() {
     if (found(LL)) go(160, 140);
     else go(140, 160);
   }
-  go(0,0);
+  //go(0,0);
 }
 
 void goFWR() {
@@ -89,7 +89,7 @@ void goFWR() {
     if (!found(RL)) go(160, 140);
     else go(140, 160);
   }
-  go(0,0);
+  //go(0,0);
 }
 
 void turnR() {
@@ -109,19 +109,32 @@ void setup() {
   pinMode(MR_D, OUTPUT);
 
   goFWL();
+  go(0,0);
+  delay(300);
   goF();
+  go(0,0);
+  delay(300);
+  goFWR();
+  go(0,0);
+  delay(300);
   setFront();
+  go(0,0);
+  delay(300);
   turnL();
+  
   setBack();
+  goFWR();
   setFront();
   go(-100, -100);
-  delay(150);
+  delay(100);
   turnR();
+  
   goFWL();
   setFront();
   go(-100, -100);
-  delay(150);
+  delay(100);
   turnR();
+  
   setBack();
   goFWL();
   goF();
