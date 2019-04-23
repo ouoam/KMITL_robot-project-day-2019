@@ -44,8 +44,8 @@ bool found(int port) {
 
 void setBack() {
   while(!found(LB) || !found(RB)) {
-    int gol = found(LB) ? 20 : -100;
-    int gor = found(RB) ? 20 : -100;
+    int gol = found(LB) ? 40 : -100;
+    int gor = found(RB) ? 40 : -100;
     go(gol, gor);
   }
   go(0,0);
@@ -53,8 +53,8 @@ void setBack() {
 
 void setFront() {
   while(!found(LF) || !found(RF)) {
-    int gol = found(LF) ? -20 : 100;
-    int gor = found(RF) ? -20 : 100;
+    int gol = found(LF) ? -40 : 100;
+    int gor = found(RF) ? -40 : 100;
     go(gol, gor);
   }
   go(0,0);
@@ -62,36 +62,37 @@ void setFront() {
 
 void goF() {
   while (!found(LF) && !found(RF) && found(LW) && found(RW)) {
-    if (found(LL) && !found(RL)) go(130, 80);
-    else if (!found(LL) && found(RL)) go(80, 130);
-    else go(100, 100);
+    if (found(LL) && !found(RL)) go(170, 135);
+    else if (!found(LL) && found(RL)) go(135, 170);
+    else go(150, 150);
   }
   go(0,0);
 }
 
 void goFW() {
   while (!found(LF) && !found(RF)) {
-    if (found(LL) && !found(RL)) go(130, 80);
-    else if (!found(LL) && found(RL)) go(80, 130);
-    else go(100, 100);
+    // if (found(LL) && !found(RL)) go(170, 135);
+    // else if (!found(LL) && found(RL)) go(135, 170);
+    // else 
+    go(130, 130);
   }
   go(0,0);
 }
 
 void goFuWR() {
-  while(!found(LW)) go(100, 100);
+  while(!found(LW)) go(150, 150);
   go(0,0);
 }
 
 void turnR() {
   go(100, -100);
-  delay(350);
+  delay(320);
   go(0,0);
 }
 
 void turnL() {
   go(-100, 100);
-  delay(350);
+  delay(320);
   go(0,0);
 }
 
@@ -114,11 +115,14 @@ void setup() {
   goFuWR();
   setFront();
 
+  // Checkpoint 1
+
   setBack();
-  go(100, 100);
-  delay(200);
+  go(110, 90);
+  delay(300);
   turnR();
   setBack();
+  setFront();
 }
 
 void loop() {
