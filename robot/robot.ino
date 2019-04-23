@@ -15,6 +15,10 @@
 
 
 void Go(int l, int r) {
+  // Tune moter
+  if (r > 0) r += 5;
+  else r -= 5;
+  
   digitalWrite(ML_D, l < 0);
   analogWrite (ML_S, l < 0 ? 255 + l : l);
   digitalWrite(MR_D, r < 0);
