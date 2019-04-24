@@ -16,8 +16,8 @@
 
 void Go(int l, int r) {
   // Tune moter
-  if (r > 0) r += 5;
-  else r -= 5;
+//  if (r > 0) r += 2;
+//  else r -= 2;
   
   digitalWrite(ML_D, l < 0);
   analogWrite (ML_S, l < 0 ? 255 + l : l);
@@ -33,7 +33,7 @@ void go(int l, int r) {
     Go(-oldL, -oldR);
     delay(50);
     Go(0,0);
-    delay(50);
+    delay(250);
   }
   Go(l, r);
   oldL = l;
@@ -46,8 +46,8 @@ bool found(int port) {
 
 void setBack() {
   while(!found(LB) || !found(RB)) {
-    int gol = found(LB) ? 40 : -70;
-    int gor = found(RB) ? 40 : -70;
+    int gol = found(LB) ? 60 : -70;
+    int gor = found(RB) ? 60 : -70;
     go(gol, gor);
   }
   go(0,0);
@@ -55,8 +55,8 @@ void setBack() {
 
 void setFront() {
   while(!found(LF) || !found(RF)) {
-    int gol = found(LF) ? -40 : 70;
-    int gor = found(RF) ? -40 : 70;
+    int gol = found(LF) ? -60 : 70;
+    int gor = found(RF) ? -60 : 70;
     go(gol, gor);
   }
   go(0,0);
@@ -96,13 +96,13 @@ void goFWR() {
 
 void turnR() {
   go(100, -100);
-  delay(340);
+  delay(360);
   go(0,0);
 }
 
 void turnL() {
   go(-100, 100);
-  delay(340);
+  delay(360);
   go(0,0);
 }
 
@@ -112,18 +112,15 @@ void setup() {
 
   goFWL();
   goF();
-  //goFWR();
   setFront();
   turnL();
 
   go(80, 80);
   delay(300);
   setBack();
-  //goFWR();
   setFront();
   turnR();
   
-  //goFWL();
   setFront();
   go(-80, -80);
   delay(150);
@@ -141,10 +138,44 @@ void setup() {
 
   setBack();
   go(80, 80);
-  delay(200);
-  turnR();
+  delay(120);
+  turnR(); // 1
+  
   setBack();
   setFront();
+  turnR(); // 2
+
+  setBack();
+  setFront();
+  turnL(); // 3
+
+  setBack();
+  setFront();
+  turnL(); // 4
+
+  setBack();
+  setFront();
+  turnR(); // 5
+
+  setBack();
+  setFront();
+  turnR(); // 6
+
+  setBack();
+  setFront();
+  turnL(); // 7
+
+  setBack();
+  setFront();
+  turnR(); // 8
+
+  setBack();
+  setFront();
+  turnL(); // 9
+
+  setBack();
+  setFront();
+  turnR();
 }
 
 void loop() {
