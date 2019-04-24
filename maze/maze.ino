@@ -31,7 +31,9 @@ int oldR;
 void go(int l, int r) {
   if (l == 0 && r == 0) {
     Go(-oldL, -oldR);
-    delay(50); 
+    delay(50);
+    Go(0,0);
+    delay(50);
   }
   Go(l, r);
   oldL = l;
@@ -44,8 +46,8 @@ bool found(int port) {
 
 void setBack() {
   while(!found(LB) || !found(RB)) {
-    int gol = found(LB) ? 40 : -100;
-    int gor = found(RB) ? 40 : -100;
+    int gol = found(LB) ? 40 : -70;
+    int gor = found(RB) ? 40 : -70;
     go(gol, gor);
   }
   go(0,0);
@@ -53,8 +55,8 @@ void setBack() {
 
 void setFront() {
   while(!found(LF) || !found(RF)) {
-    int gol = found(LF) ? -40 : 100;
-    int gor = found(RF) ? -40 : 100;
+    int gol = found(LF) ? -40 : 70;
+    int gor = found(RF) ? -40 : 70;
     go(gol, gor);
   }
   go(0,0);
@@ -62,45 +64,45 @@ void setFront() {
 
 void goF() {
   while (!found(LF) && !found(RF) && found(LW) && found(RW)) {
-    if (found(LL) && !found(RL)) go(170, 135);
-    else if (!found(LL) && found(RL)) go(135, 170);
-    else go(150, 150);
+    if (found(LL) && !found(RL)) go(120, 85);
+    else if (!found(LL) && found(RL)) go(85, 120);
+    else go(100, 100);
   }
   // go(0,0);
 }
 
 void goFW() {
   while (!found(LF) && !found(RF)) {
-    go(130, 130);
+    go(100, 100);
   }
   go(0,0);
 }
 
 void goFWL() {
   while (!found(LF) && !found(RF) && !found(RW)) {
-    if (found(LL)) go(160, 140);
-    else go(140, 160);
+    if (found(LL)) go(120, 100);
+    else go(100, 120);
   }
   //go(0,0);
 }
 
 void goFWR() {
   while (!found(LF) && !found(RF) && !found(LW)) {
-    if (!found(RL)) go(160, 140);
-    else go(140, 160);
+    if (!found(RL)) go(120, 100);
+    else go(100, 120);
   }
   //go(0,0);
 }
 
 void turnR() {
   go(100, -100);
-  delay(320);
+  delay(340);
   go(0,0);
 }
 
 void turnL() {
   go(-100, 100);
-  delay(320);
+  delay(340);
   go(0,0);
 }
 
@@ -109,42 +111,37 @@ void setup() {
   pinMode(MR_D, OUTPUT);
 
   goFWL();
-  go(0,0);
-  delay(300);
   goF();
-  go(0,0);
-  delay(300);
-  goFWR();
-  go(0,0);
-  delay(300);
+  //goFWR();
   setFront();
-  go(0,0);
-  delay(300);
   turnL();
-  
+
+  go(80, 80);
+  delay(300);
   setBack();
-  goFWR();
+  //goFWR();
   setFront();
-  go(-100, -100);
-  delay(100);
   turnR();
   
-  goFWL();
+  //goFWL();
   setFront();
-  go(-100, -100);
-  delay(100);
+  go(-80, -80);
+  delay(150);
   turnR();
   
   setBack();
-  goFWL();
+  //goFWL();
   goF();
   setFront();
+
+  go(0,0);
+  delay(100);
 
   // Checkpoint 1
 
   setBack();
-  go(110, 90);
-  delay(300);
+  go(80, 80);
+  delay(200);
   turnR();
   setBack();
   setFront();
