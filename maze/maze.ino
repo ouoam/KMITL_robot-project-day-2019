@@ -34,6 +34,9 @@ void go(int l, int r) {
     delay(50);
     Go(0,0);
     delay(250);
+  } else if (oldL == 0 && oldR == 0) {
+    Go(l > 0 ? 200 : -200, r > 0 ? 200 : -200);
+    delay(50);
   }
   Go(l, r);
   oldL = l;
@@ -96,13 +99,13 @@ void goFWR() {
 
 void turnR() {
   go(100, -100);
-  delay(360);
+  delay(300);
   go(0,0);
 }
 
 void turnL() {
   go(-100, 100);
-  delay(360);
+  delay(300);
   go(0,0);
 }
 
@@ -122,8 +125,6 @@ void setup() {
   turnR();
   
   setFront();
-  go(-80, -80);
-  delay(150);
   turnR();
   
   setBack();
