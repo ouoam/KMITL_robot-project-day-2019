@@ -34,6 +34,9 @@ void go(int l, int r) {
     delay(50);
     Go(0,0);
     delay(250);
+  } else if (oldL == 0 && oldR == 0) {
+    Go(l > 0 ? 200 : -200, r > 0 ? 200 : -200);
+    delay(50);
   }
   Go(l, r);
   oldL = l;
@@ -58,15 +61,17 @@ void setFront() {
     int gol = found(LF) ? -70 : 70;
     int gor = found(RF) ? -70 : 70;
     go(gol, gor);
+    
   }
   go(0,0);
 }
 
 void goF() {
   while (!found(LF) && !found(RF) && found(LW) && found(RW)) {
-    if (found(LL) && !found(RL)) go(120, 85);
-    else if (!found(LL) && found(RL)) go(85, 120);
-    else go(100, 100);
+    if (found(LL) && !found(RL)) go(100, 70);
+    else if (!found(LL) && found(RL)) go(70, 100);
+    else go(80, 80);
+    delay(50);
   }
   // go(0,0);
 }
@@ -74,35 +79,38 @@ void goF() {
 void goFW() {
   while (!found(LF) && !found(RF)) {
     go(100, 100);
+    delay(50);
   }
   go(0,0);
 }
 
 void goFWL() {
   while (!found(LF) && !found(RF) && !found(RW)) {
-    if (found(LL)) go(100, -40);
-    else go(-40, 100);
+    if (found(LL)) go(70, 20);
+    else go(20, 70);
+    delay(50);
   }
   //go(0,0);
 }
 
 void goFWR() {
   while (!found(LF) && !found(RF) && !found(LW)) {
-    if (!found(RL)) go(100, -40);
-    else go(-40, 100);
+    if (!found(RL)) go(70, 20);
+    else go(20, 70);
+    delay(50);
   }
   //go(0,0);
 }
 
 void turnR() {
   go(120, -120);
-  delay(300);
+  delay(265);
   go(0,0);
 }
 
 void turnL() {
   go(-120, 120);
-  delay(300);
+  delay(265);
   go(0,0);
 }
 
@@ -111,6 +119,7 @@ void setup() {
   pinMode(MR_D, OUTPUT);
 
   delay(500);
+
 
   goFWL();
   goF();
@@ -125,16 +134,18 @@ void setup() {
   setFront();
   turnR();
 
-  goFWR();
+  goFWL();
   goF();
-  goFWR();
+  goFWL();
   setFront();
   go(-80, -80);
-  delay(150);
+  delay(50);
   turnR();
-  
+
+  go(80, 80);
+  delay(200);
   setBack();
-  goFWL();
+  //goFWL();
   goF();
   setFront();
 
@@ -144,8 +155,6 @@ void setup() {
   // Checkpoint 1
 
   setBack();
-  go(80, 80);
-  delay(120);
   turnR(); // 1
   
   setBack();
